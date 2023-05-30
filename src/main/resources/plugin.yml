@@ -1,0 +1,4 @@
+name: FarmAssist
+version: '${project.version}'
+main: hu.peti.dev.farmassist.FarmAssist
+api-version: 1.19
