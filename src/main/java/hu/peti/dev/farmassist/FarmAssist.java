@@ -42,7 +42,7 @@ public final class FarmAssist extends JavaPlugin implements Listener {
     public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
         if (command.getName().equalsIgnoreCase("farmassist")) {
             if (args.length == 0) {
-                sender.sendMessage("\n" + ChatColor.AQUA + ChatColor.BOLD + "[FarmAssist - v1.1.1]");
+                sender.sendMessage("\n" + ChatColor.AQUA + ChatColor.BOLD + "[FarmAssist - v1.1.3]");
                 sender.sendMessage("\n");
             } else if (args.length == 1) {
                 switch (args[0]) {
@@ -100,7 +100,6 @@ public final class FarmAssist extends JavaPlugin implements Listener {
             var blockMaterial = block.getBlockData().getMaterial();
             if (!cropMap.containsKey(blockMaterial)) return;
             var seedMaterial = cropMap.get(blockMaterial);
-            System.out.println("Seed to plant: " + seedMaterial);
             if (event.getPlayer().getInventory().contains(seedMaterial)) {
                 var seedStack = Arrays.stream(event.getPlayer().getInventory().getContents())
                         .filter(i -> i != null && i.getType().equals(seedMaterial))
