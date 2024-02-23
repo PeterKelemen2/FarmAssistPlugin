@@ -5,4 +5,4 @@ api-version: 1.19
 commands:
   farmassist:
     description: Toggle pause for FarmAssist plugin
-    usage: [FarmAssist - v1.0]
+    usage: [FarmAssist - v1.1]
