@@ -41,16 +41,35 @@ public final class FarmAssist extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
         if (command.getName().equalsIgnoreCase("farmassist")) {
-            if (args.length == 1) {
-                if ("toggle".startsWith(args[0].toLowerCase())) {
-                    togglePause(sender);
-                    return true;
+            if (args.length == 0) {
+                sender.sendMessage("\n" + ChatColor.AQUA + ChatColor.BOLD + "[FarmAssist - v1.1.1]");
+                sender.sendMessage("\n");
+            } else if (args.length == 1) {
+                switch (args[0]) {
+                    case "toggle":
+                        togglePause(sender);
+                        break;
+                    case "help":
+                        sender.sendMessage(ChatColor.AQUA + "\n[FarmAssist Commands]\n" +
+                                ChatColor.RESET + "/toggle - " + ChatColor.GREEN + "Toggles FarmAssist plugin" + ChatColor.RESET);
+                        sender.sendMessage("\n");
+                        break;
+                    default:
+                        sender.sendMessage(ChatColor.AQUA + "[FarmAssist]" +
+                                ChatColor.RESET +  " Couldn't recognize the command. Please refer to\n" +
+                                ChatColor.GREEN +  "/farmassist help");
+                        break;
                 }
+            } else {
+                sender.sendMessage(ChatColor.AQUA + "[FarmAssist]" +
+                        ChatColor.RESET +  " Couldn't recognize the command. Please refer to\n" +
+                        ChatColor.GREEN +  "/farmassist help");
             }
-            return false;
+            return true;
         }
         return false;
     }
+
 
     private void togglePause(CommandSender sender) {
         isPaused = !isPaused;
