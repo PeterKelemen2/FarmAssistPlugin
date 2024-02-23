@@ -6,6 +6,9 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,10 +35,34 @@ public final class FarmAssist extends JavaPlugin implements Listener {
             Material.NETHER_WART, Material.NETHER_WART
     );
 
+    private boolean isPaused = false;
+
     @Override
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
 //        getServer().getPluginManager().registerEvents(new FarmAssist(this), this);
+        PluginCommand command = getCommand("farmassist");
+        command.setExecutor(this);
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (command.getName().equalsIgnoreCase("farmassist")) {
+            if (args.length == 1 && args[0].equalsIgnoreCase("toggle")) {
+                togglePause(sender);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void togglePause(CommandSender sender) {
+        isPaused = !isPaused;
+        if (isPaused) {
+            sender.sendMessage("[FarmAssist] - Paused.");
+        } else {
+            sender.sendMessage("[FarmAssist] - Resumed");
+        }
     }
 
     @Override
@@ -47,6 +74,11 @@ public final class FarmAssist extends JavaPlugin implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         var block = event.getBlock();
 //        var player = event.getPlayer();
+
+        if (isPaused) {
+            return;
+        }
+
         if (block.getBlockData() instanceof Ageable) {
             var blockMaterial = block.getBlockData().getMaterial();
             if (!cropMap.containsKey(blockMaterial)) return;

@@ -2,3 +2,7 @@ name: FarmAssist
 version: '${project.version}'
 main: hu.peti.dev.farmassist.FarmAssist
 api-version: 1.19
+commands:
+  farmassist:
+    description: Toggle pause for FarmAssist plugin
+    usage: [FarmAssist - v1.0]
