@@ -16,6 +16,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.ChatColor;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -48,10 +49,13 @@ public final class FarmAssist extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("farmassist")) {
-            if (args.length == 1 && args[0].equalsIgnoreCase("toggle")) {
-                togglePause(sender);
-                return true;
+            if (args.length == 1) {
+                if ("toggle".startsWith(args[0].toLowerCase())) {
+                    togglePause(sender);
+                    return true;
+                }
             }
+            return false;
         }
         return false;
     }
@@ -59,9 +63,11 @@ public final class FarmAssist extends JavaPlugin implements Listener {
     private void togglePause(CommandSender sender) {
         isPaused = !isPaused;
         if (isPaused) {
-            sender.sendMessage("[FarmAssist] - Paused.");
+            sender.sendMessage(ChatColor.AQUA + " " + ChatColor.BOLD + "[FarmAssist]" +
+                    ChatColor.RESET + " - " + ChatColor.DARK_RED + "Paused.");
         } else {
-            sender.sendMessage("[FarmAssist] - Resumed");
+            sender.sendMessage(ChatColor.AQUA + " " + ChatColor.BOLD + "[FarmAssist]" +
+                    ChatColor.RESET + " - " + ChatColor.DARK_GREEN + "Resumed.");
         }
     }
 
