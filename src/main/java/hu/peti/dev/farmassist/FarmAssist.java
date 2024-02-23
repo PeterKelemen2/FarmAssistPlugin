@@ -106,6 +106,7 @@ public final class FarmAssist extends JavaPlugin implements Listener {
                             case POTATOES -> placedBlock.setType(Material.POTATOES);
                             case CARROTS -> placedBlock.setType(Material.CARROTS);
                             case BEETROOTS -> placedBlock.setType(Material.BEETROOTS);
+                            case NETHER_WART -> placedBlock.setType(Material.NETHER_WART);
                         }
                     }
                 }.runTask(this);
